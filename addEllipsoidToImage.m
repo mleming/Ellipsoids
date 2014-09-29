@@ -1,15 +1,21 @@
 function [ output_args ] = addEllipsoidToImage(image, cx, cy, cz, rx, ry, rz, file_name  )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%AUTHOR: Matthew Leming
+%   Scales an image to intensities 0 to 1, then adds an ellipsoid to that
+%   by doubling the values in the ellipsoid region. Writes a metaimage for
+%   use in ITK-SNAP
+
 xrange = 128;
 yrange = 128;
 zrange = 128;
 
 ellipsoid = zeros([xrange yrange zrange]);
+
+% For scaling the image
 min_value = min(image(:));
 max_value = max(image(:));
 
-
+% Add the ellipsoid to the input image, giving the ellipsoid double the
+% intensity
 for x=1:xrange
     for y=1:yrange
         for z=1:zrange

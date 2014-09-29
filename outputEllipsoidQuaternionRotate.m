@@ -1,20 +1,29 @@
 function [ output_args ] = outputEllipsoidQuaternionRotate( cx, cy, cz, rx, ry, rz, quaternion, file_name)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%AUTHOR: Matthew Leming
+%   Outputs an ellipsoid that is rotated by the input quaternion,
+%   represented as a 4-element array (real, i, j, k).
 xrange = 128;
 yrange = 128;
 zrange = 128;
 
 ellipsoid = zeros([xrange yrange zrange]);
+
 x_axis = [1 0 0];
 y_axis = [0 1 0];
 z_axis = [0 0 1];
 
+% Rotate the unit vectors
 x_axis = quatrotate(quaternion, x_axis);
 y_axis = quatrotate(quaternion, y_axis);
 z_axis = quatrotate(quaternion, z_axis);
+
+%Multiply this by the coordinates that are found to by in a non-rotated
+%ellipsoid
 rotation_matrix =  [x_axis' y_axis' z_axis'];
 
+%Rounding errors cause a grid of values to not be filled in on the 3D
+%ellipsoid, so there are eight calls to ensure that rounding errors after
+%rotation do not leave holes in a resulting ellipsoid.
 for x=1:xrange
     for y=1:yrange
         for z=1:zrange
