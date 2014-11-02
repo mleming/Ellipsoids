@@ -20,3 +20,8 @@ decideMETADataType.m: decides which datatype to encode the meta image in
 
 
 Currently, only 128x128x128 images are supported for any classes.
+
+
+To run the assignment 2.2 code, run "run_script2.m"
+
+To run the assignment 2.3 code, run "run_script2.m"
